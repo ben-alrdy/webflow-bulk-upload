@@ -47,7 +47,7 @@ for file in "$LOGO_FOLDER"/*.{png,jpg,jpeg,svg,gif,webp}; do
   
   filename=$(basename "$file")
   stem="${filename%.*}"
-  name="$(sed -E 's/^([a-z])/\U\1/' <<<"$stem")"          # Capitalise 1st
+  name="$(tr '[:lower:]' '[:upper:]' <<<"${stem:0:1}")${stem:1}"  # Capitalise 1st
   slug="$(tr '[:upper:]' '[:lower:]' <<<"$stem" | tr ' ' '-')"  # lower-kebab
   alt="$name Logo"
   url="https://raw.githubusercontent.com/$GH_USER/$REPO/$BRANCH/$LOGO_FOLDER/$(printf '%s' "$filename" | sed 's/ /%20/g')"
